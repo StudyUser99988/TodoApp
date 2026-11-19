@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head th:insert="~{common/head :: head('一覧画面')}">
+</head>
+<body class="d-flex flex-column justify-content-center mx-auto p-2 w-75">
+    <header th:replace="~{common/header :: header('TODO一覧')}"></header>
+    <main>
+        <div th:if="${successMessage}" class="alert alert-success mb-2" role="alert" th:text="${successMessage}"></div>
+        <div class="mb-3">
+            <a th:href="@{/regist/init}" class="btn btn-secondary">新規登録</a>
+        </div>
+        <th:block th:if="${#lists.isEmpty(todoList)}">
+            <p>TODOがありません</p>
+        </th:block>
+        <th:block th:unless="${#lists.isEmpty(todoList)}">
+            <table class="table ">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">内容</th>
+                        <th scope="col">期限</th>
+                        <th scope="col">編集</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr th:each="todo:${todoList}" class="align-middle">
+                        <td>
+                            <input type="checkbox" th:checked="${todo.todoDone}" th:data-todo-id="${todo.todoId}" class="todo-done-checkbox">
+                        </td>
+                        <td>[[${todo.todoText}]]</td>
+                        <td>[[${todo.todoLimitDate}]]</td>
+                        <td>
+                            <a th:href="@{/update/init(todoId=${todo.todoId})}" class="btn btn-secondary">編集</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </th:block>
+    </main>
+    <footer th:replace="~{common/footer :: footer}"></footer>
+</body>
+</html>

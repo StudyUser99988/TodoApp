@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head th:insert="~{common/head :: head('編集画面')}">
+</head>
+<body class="d-flex flex-column justify-content-center mx-auto p-2 w-75">
+<header th:replace="~{common/header :: header('TODO編集')}"></header>
+<main class="d-flex flex-column justify-content-center">
+    <form th:action="@{/update/update}" method="post" th:object="${updateTodoRequest}">
+        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger mb-3">
+            <ul>
+                <li th:each="error : ${#fields.errors('*')}"
+                    th:text="${error}">
+                </li>
+            </ul>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" th:for="*{todoText}">内容</label>
+            <input type="text" th:field="*{todoText}" th:classappend="${#fields.hasErrors('todoText')} ? ' is-invalid' : ''">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" th:for="*{todoLimitDate}">期限</label>
+            <input type="date" th:field="*{todoLimitDate}" th:classappend="${#fields.hasErrors('todoLimitDate')} ? ' is-invalid' : ''">
+        </div>
+        <div class="d-flex justify-content-evenly">
+            <a th:href="@{/list}" class="btn btn-secondary">一覧へ戻る</a>
+            <button type="submit" class="btn btn-primary">編集</button>
+        </div>
+        <input type="hidden" th:field="*{todoId}"/>
+    </form>
+</main>
+<footer th:replace="~{common/footer :: footer}"></footer>
+</body>
+</html>

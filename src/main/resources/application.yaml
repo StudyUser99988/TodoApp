@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: TodoApp
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.springframework.security: TRACE
+    org.springframework.security.oauth2: TRACE
